@@ -10,8 +10,10 @@
 *.pt
 
 # folder
-.vscode/
-coco2017_data/
+/vscode
+/coco2017_data
+/model
+/images
 
 # Packages #
 ############
