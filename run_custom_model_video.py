@@ -7,9 +7,6 @@ from multiprocessing import Process, Pipe, Manager, Queue
 from multiprocessing.managers import BaseManager
 import cv2
 
-
-
-
 def predict_step(image, model, feature_extractor, device, tokenizer, gen_kwargs):
     img_input = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
@@ -107,8 +104,6 @@ def main():
             thread_1.terminate()
             cv2.destroyAllWindows()
             break
-
-
 
 if __name__ == '__main__':
     main()
