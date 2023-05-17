@@ -96,11 +96,11 @@ def preprocess_fn(examples, max_target_length, check_image = True):
 
     return model_inputs
 
-# data_path = "D:\yoseph\DataSet\Captioning_dataset/coco2017_data/"
-# ds = datasets.load_dataset(path = "make_coco_train_data", name = "2017", data_dir=data_path)
+data_path = "D:\yoseph\DataSet\Captioning_dataset/coco2017_data/"
+ds = datasets.load_dataset(path = "make_coco_train_data", name = "2017", data_dir=data_path, cache_dir = "D:\yoseph\huggingface\.cache")
 
-data_path = "D:\yoseph\DataSet\Captioning_dataset/coco2017_data_test/"
-ds = datasets.load_dataset(path = "make_coco_train_data", name = "2017", data_dir=data_path)
+# data_path = "D:\yoseph\DataSet\Captioning_dataset/coco2017_data_test/"
+# ds = datasets.load_dataset(path = "make_coco_train_data", name = "2017", data_dir=data_path)
 
 new_data = [{"image_id" : -1, 
             "caption_id" : -1, 
@@ -486,7 +486,7 @@ model.config.pad_token_id = tokenizer.pad_token_id
 processed_dataset = new_ds.map(function=preprocess_fn, batched=True, fn_kwargs={"max_target_length": 128}, remove_columns=ds['train'].column_names)
 
 # processed_dataset.save_to_disk('./processed_dataset')
-training_args = Seq2SeqTrainingArguments(predict_with_generate=True, evaluation_strategy="epoch", per_device_train_batch_size=4, per_device_eval_batch_size=4, output_dir="./model/image-captioning-output",num_train_epochs = 5)
+training_args = Seq2SeqTrainingArguments(predict_with_generate=True, evaluation_strategy="epoch", per_device_train_batch_size=4, per_device_eval_batch_size=4, output_dir="./model/image-captioning-output",num_train_epochs = 2)
 trainer = Seq2SeqTrainer(model=model, tokenizer=feature_extractor, args=training_args, compute_metrics=compute_metrics, train_dataset=processed_dataset['train'], eval_dataset=processed_dataset['validation'], data_collator=default_data_collator,)
 
 trainer.train()
