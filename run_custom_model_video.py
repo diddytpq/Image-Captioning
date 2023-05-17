@@ -12,7 +12,6 @@ def predict_step(image, model, feature_extractor, device, tokenizer, gen_kwargs)
 
     pixel_values = feature_extractor(images=[img_input], return_tensors="pt").pixel_values
     pixel_values = pixel_values.to(device)
-    print(pixel_values.shape)
 
     output_ids = model.generate(pixel_values, **gen_kwargs)
 
@@ -74,7 +73,7 @@ def main():
     num_beams = 4
     gen_kwargs = {"max_length": max_length, "num_beams": num_beams}
 
-    video_path = "./videos/C002100_006.mp4"
+    video_path = "./videos/falldown_2.mp4"
 
     BaseManager.register('img_buffer', Img_Buffer)
     manager = BaseManager()
